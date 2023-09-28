@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeetUp - <%-nombrePagina%></title>
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/latest/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <!-- <link rel="stylesheet" href="/public/css/app.css" /> -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/trix@2.0.0/dist/trix.css"
+    />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+      crossorigin=""
+    />
+    <!-- <link
+      rel="stylesheet"
+      href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css"
+      integrity="sha512-BkZKghR9DV2LpDgmb/Uvl8bdoQj9O6OkkgbfXVpFfHTGcrHGqJIk1J5t+ZY5E3peLfTBazzjScnBguwthKvC1g=="
+      crossorigin=""
+    /> -->
+
+    <!-- <link rel="stylesheet" href="/css/leaflet.css" /> -->
+  </head>
+  <body>
+    <header class="site-header contenedor">
+      <a href="/">
+        <img src="/img/logo.png" alt="Logo MeetUp" />
+      </a>
+      <nav class="nav">
+        <% if(locals.usuario.id) {%> <%- include partials/nav-autenticado.ejs %>
+        <% }else{ %> <%- include partials/nav-no-autenticado.ejs %> <% } %>
+      </nav>
+    </header>
+
+    <% if (locals.mensajes) { %> <% const categoria =
+    Object.keys(locals.mensajes) %> <% if(categoria.length) { %> <%
+    locals.mensajes[categoria].forEach(alerta => { %>
+    <div class="alertas">
+      <p class="alerta <%= categoria %>"><%= alerta %></p>
+    </div>
+    <% }) %> <% } %> <% } %> <%- body %>
+
+    <footer class="site-footer contenedor">
+      <nav class="nav">
+        <a href="/crear-grupo">Crear Grupo</a>
+        <a href="/iniciar-sesion">Iniciar Sesión</a>
+        <a href="/crear-cuenta">Registrarse</a>
+      </nav>
+      <p class="copyright">
+        Todos los derechos reservados MeetUp <%- year %> &copy;
+      </p>
+      <!-- <p class="copyright">
+        Todos los derechos reservados MeetUp <span id="year"></span> &copy;
+      </p> -->
+    </footer>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"
+    ></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <% if(usuario.id) { %>
+    <script src="/dist/bundle.js"></script>
+    <% } %>
+    <script type="module" src="/js/meeti.js"></script>
+  </body>
+</html>
